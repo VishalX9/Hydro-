@@ -7,7 +7,7 @@ const router = express.Router();
 export function createForecastRoutes(db) {
   const submissionsCollection = db.collection('submissions');
 
-  router.get('/:siteId', authenticateToken, async (req, res) => {
+  router.get('/:siteId/forecast', authenticateToken, async (req, res) => {
     try {
       const { siteId } = req.params;
       

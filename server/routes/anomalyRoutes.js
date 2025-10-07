@@ -8,7 +8,7 @@ export function createAnomalyRoutes(db) {
   const submissionsCollection = db.collection('submissions');
   const anomaliesCollection = db.collection('anomalies');
 
-  router.get('/:siteId', authenticateToken, async (req, res) => {
+  router.get('/:siteId/anomaly', authenticateToken, async (req, res) => {
     try {
       const { siteId } = req.params;
       const N = Number(process.env.ANOMALY_WINDOW || 20);
@@ -61,7 +61,7 @@ export function createAnomalyRoutes(db) {
     }
   });
 
-  router.get('/', authenticateToken, async (req, res) => {
+  router.get('/anomalies', authenticateToken, async (req, res) => {
     try {
       const { acknowledged } = req.query;
       const query = acknowledged !== undefined ? { acknowledged: acknowledged === 'true' } : {};
