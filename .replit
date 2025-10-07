@@ -1,0 +1,6 @@
+modules = ["cpp-clang14", "nodejs-20", "swift-5.8"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
