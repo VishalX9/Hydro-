@@ -12,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _pass = TextEditingController();
-  String role = 'Field Personnel';
+  String role = 'Employee';
   final ApiClient _api = ApiClient();
   bool _loading = false;
 
@@ -28,12 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // 🔹 Background image (make sure this matches your asset name)
           Image.asset(
-            'assets/login_bg.jpg', // or 'assets/login_bg.webp'
+            'assets/login_bg.jpg',
             fit: BoxFit.cover,
           ),
-          Container(color: Colors.black.withOpacity(0.4)), // dark overlay
+          Container(color: Colors.black.withOpacity(0.4)),
 
           Center(
             child: ConstrainedBox(
@@ -81,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       DropdownButtonFormField<String>(
                         initialValue: role,
                         items: const [
-                          DropdownMenuItem(value: 'Field Personnel', child: Text('Field Personnel')),
+                          DropdownMenuItem(value: 'Employee', child: Text('Employee')),
                           DropdownMenuItem(value: 'Supervisor', child: Text('Supervisor')),
                           DropdownMenuItem(value: 'Analyst', child: Text('Analyst')),
                         ],

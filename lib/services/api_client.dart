@@ -51,12 +51,14 @@ class ApiClient {
     required String password,
     String? fullName,
     String? phone,
+    String? role,
   }) async {
     final payload = {
       'username': username,
       'password': password,
       if (fullName != null && fullName.isNotEmpty) 'name': fullName,
       if (phone != null && phone.isNotEmpty) 'phone': phone,
+      if (role != null && role.isNotEmpty) 'role': role,
     };
     final r = await http.post(
       _u('/auth/register'),

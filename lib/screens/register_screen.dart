@@ -13,6 +13,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController id = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController password = TextEditingController();
+  String role = 'Employee';
   final ApiClient _api = ApiClient();
   bool _loading = false;
 
@@ -49,6 +50,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   decoration: const InputDecoration(labelText: 'Password'),
                   obscureText: true,
                 ),
+                const SizedBox(height: 12),
+                DropdownButtonFormField<String>(
+                  value: role,
+                  items: const [
+                    DropdownMenuItem(value: 'Employee', child: Text('Employee')),
+                    DropdownMenuItem(value: 'Supervisor', child: Text('Supervisor')),
+                    DropdownMenuItem(value: 'Analyst', child: Text('Analyst')),
+                  ],
+                  onChanged: (v) => setState(() => role = v ?? role),
+                  decoration: const InputDecoration(labelText: 'Role'),
+                ),
                 const SizedBox(height: 20),
                 FilledButton(
                   onPressed: _loading
@@ -69,6 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               password: pass,
                               fullName: name.text.trim(),
                               phone: phone.text.trim(),
+                              role: role,
                             );
                             if (resp['ok'] == true) {
                               if (!mounted) return;
