@@ -12,7 +12,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _pass = TextEditingController();
-  String role = 'Employee';
   final ApiClient _api = ApiClient();
   bool _loading = false;
 
@@ -75,22 +74,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         obscureText: true,
                       ),
-                      const SizedBox(height: 12),
-
-                      DropdownButtonFormField<String>(
-                        initialValue: role,
-                        items: const [
-                          DropdownMenuItem(value: 'Employee', child: Text('Employee')),
-                          DropdownMenuItem(value: 'Supervisor', child: Text('Supervisor')),
-                          DropdownMenuItem(value: 'Analyst', child: Text('Analyst')),
-                        ],
-                        onChanged: (v) => setState(() => role = v ?? role),
-                        decoration: const InputDecoration(
-                          labelText: 'Role',
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
-                      ),
                       const SizedBox(height: 20),
 
                       FilledButton(
@@ -108,13 +91,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               try {
                                 final resp = await _api.login(username: email, password: _pass.text);
                                 if (resp['ok'] == true) {
-                                  if (role == 'Supervisor') {
+                                  final userRole = resp['user']?['role'] ?? 'Employee';
+                                  
+                                  if (userRole == 'Supervisor') {
                                     Navigator.pushReplacementNamed(
                                       context,
                                       '/home',
                                       arguments: {'role': 'supervisor', 'index': 1},
                                     );
-                                  } else if (role == 'Analyst') {
+                                  } else if (userRole == 'Analyst') {
                                     Navigator.pushReplacementNamed(context, '/analyst');
                                   } else {
                                     Navigator.pushReplacementNamed(
