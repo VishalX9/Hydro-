@@ -37,7 +37,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 12),
                 TextField(
                   controller: id,
-                  decoration: const InputDecoration(labelText: 'Email / Employee ID'),
+                  decoration: const InputDecoration(
+                    labelText: 'Email / Employee ID',
+                  ),
                 ),
                 const SizedBox(height: 12),
                 TextField(
@@ -52,10 +54,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  value: role,
+                  initialValue: role,
                   items: const [
-                    DropdownMenuItem(value: 'Employee', child: Text('Employee')),
-                    DropdownMenuItem(value: 'Supervisor', child: Text('Supervisor')),
+                    DropdownMenuItem(
+                      value: 'Employee',
+                      child: Text('Employee'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Supervisor',
+                      child: Text('Supervisor'),
+                    ),
                     DropdownMenuItem(value: 'Analyst', child: Text('Analyst')),
                   ],
                   onChanged: (v) => setState(() => role = v ?? role),
@@ -70,7 +78,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           final pass = password.text;
                           if (username.isEmpty || pass.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Enter username and password')),
+                              const SnackBar(
+                                content: Text('Enter username and password'),
+                              ),
                             );
                             return;
                           }
@@ -86,12 +96,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (resp['ok'] == true) {
                               if (!mounted) return;
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Registered successfully. Please login.')),
+                                const SnackBar(
+                                  content: Text(
+                                    'Registered successfully. Please login.',
+                                  ),
+                                ),
                               );
                               Navigator.pop(context);
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Registration failed: ${resp['error'] ?? 'Unknown'}')),
+                                SnackBar(
+                                  content: Text(
+                                    'Registration failed: ${resp['error'] ?? 'Unknown'}',
+                                  ),
+                                ),
                               );
                             }
                           } catch (e) {
